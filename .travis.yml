@@ -3,7 +3,7 @@ services:
   - docker
 
 before_install:
-  - docker build -t egbodofo/birdboard-test -f Dockerfile .
+  - docker build -t noalistic/birdboard-test -f Dockerfile .
 
 script:
   - docker run -e CI=true noalistic/birdboard-test vendor/bin/phpunit tests/Feature/ProjectTasksTest.php
