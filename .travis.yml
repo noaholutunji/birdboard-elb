@@ -6,14 +6,14 @@ before_install:
   - docker build -t noalistic/birdboard-test -f Dockerfile .
 
 script:
-  - docker run -e CI=true noalistic/birdboard-test vendor/bin/phpunit tests/Feature/ProjectTasksTest.php
+  - docker run -e CI=true noalistic/birdboard-test vendor/bin/phpunit
 
 after_success:
   # build docker images
-  - docker build -t noalistic/birdboard-app ./development/app.dockerfile
-  - docker build -t noalistic/birdboard-web ./development/web.dockerfile
+  - docker build -t noalistic/birdboard-app .
+  - docker build -t noalistic/birdboard-nginx -f Dockerfile.nginx .
   # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take these build images and push to docker hub
   - docker push noalistic/birdboard-app
-  - docker push noalistic/birdboard-web
+  - docker push noalistic/birdboard-nginx
