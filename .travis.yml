@@ -5,8 +5,8 @@ services:
 before_install:
   - docker build -t noalistic/birdboard-test -f ./development/app.dockerfile .
 
-# script:
-#   - docker run -e CI=true noalistic/birdboard-test vendor/bin/phpunit tests/Feature/ProjectTasksTest.php
+script:
+  - docker run -e CI=true noalistic/birdboard-test vendor/bin/phpunit tests/Feature/ProjectTasksTest.php
 
 after_success:
   # build docker images
