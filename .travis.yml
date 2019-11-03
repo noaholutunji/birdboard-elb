@@ -2,8 +2,8 @@ sudo: required
 services:
   - docker
 
-# before_install:
-#   - docker build -t noalistic/birdboard-test -f ./development/app-dockerfile .
+before_install:
+  - docker build -t noalistic/birdboard-test -f ./development/app-dockerfile .
 
 script:
   - docker run -e CI=true noalistic/birdboard-test vendor/bin/phpunit
@@ -11,7 +11,7 @@ script:
 after_success:
   # build docker images
   - docker build -t noalistic/birdboard-app ./development/app-dockerfile
-  - docker build -t noalistic/ninostyle-web ./development/app-dockerfile
+  - docker build -t noalistic/birdboard-web ./development/app-dockerfile
 
   # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
