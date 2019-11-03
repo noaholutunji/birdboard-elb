@@ -11,7 +11,7 @@ script:
 after_success:
   # build docker images
   - docker build -t noalistic/birdboard-app ./development/app-dockerfile
-  - docker build -t noalistic/birdboard-web ./development/app-dockerfile
+  - docker build -t noalistic/birdboard-web ./development/web-dockerfile
 
   # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
