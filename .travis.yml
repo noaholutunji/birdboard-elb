@@ -6,7 +6,7 @@ services:
 #   - docker build -t noalistic/birdboard-test -f ./development/app-dockerfile .
 
 script:
-  - docker run -e CI=true noalistic/birdboard-test vendor/bin/phpunit -- --coverage
+  - docker run -e CI=true noalistic/birdboard-test vendor/bin/phpunit
 
 after_success:
   # build docker images
