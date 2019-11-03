@@ -3,10 +3,10 @@ services:
   - docker
 
 before_install:
-  - docker build -t noaholutunji/birdboard-test -f ./development/app-dockerfile .
+  - docker build -t noalistic/birdboard-test -f ./development/app-dockerfile .
 
 script:
-  - docker run -e CI=true noaholutunji/birdboard-test vendor/bin/phpunit
+  - docker run -e CI=true noalistic/birdboard-test vendor/bin/phpunit
 
 after_success:
   # build docker images
