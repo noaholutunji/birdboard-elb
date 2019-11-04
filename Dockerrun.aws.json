@@ -9,7 +9,7 @@
             "memory": 128
         },
         {
-            "name": "nginx",
+            "name": "web",
             "image": "noalistic/birdboard-nginx",
             "hostname": "nginx",
             "essential": true,
