@@ -6,7 +6,7 @@
             "image": "noalistic/birdboard-app",
             "hostname": "app",
             "essential": false,
-            "memory": 128
+            "memory": 512
         },
         {
             "name": "nginx",
@@ -19,8 +19,7 @@
                     "containerPort": 80
                 }
             ],
-            "links": ["laravel"],
-            "memory": 128
+            "links": ["laravel"]
         }
     ]
 }
