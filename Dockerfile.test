@@ -1,7 +1,7 @@
 FROM php:7.2-fpm
 
 RUN apt-get update \
-  && apt-get -y install git zip unzip default-mysql-client nginx \
+  && apt-get -y install git zip unzip default-mysql-client \
   libmcrypt-dev libmagickwand-dev --no-install-recommends \
   && pecl install mcrypt-1.0.2 \
   && docker-php-ext-install pdo_mysql zip \
@@ -18,8 +18,6 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
   && php -r "unlink('composer-setup.php');" \
   && php composer.phar install --no-scripts \
   && rm composer.phar
-
-COPY default.conf /etc/nginx/sites-enabled/default
 
 COPY . .
 

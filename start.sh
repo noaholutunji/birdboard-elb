@@ -9,4 +9,5 @@ while [ ${maxTries} -gt 0 ] && ! mysql --user=${DB_USERNAME} --password=${DB_PAS
 done
 
 php artisan migrate --force
-php-fpm
+php-fpm -D
+nginx -g "daemon off;"
