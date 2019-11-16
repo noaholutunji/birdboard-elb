@@ -8,7 +8,7 @@ script:
   - docker run noalistic/birdboard-test vendor/bin/phpunit
 
 after_success:
-  - docker build -t papiyinks/birdboard-app .
+  - docker build -t noalistic/birdboard-app .
   # - docker build -t noalistic/birdboard-nginx -f Dockerfile.nginx .
   - echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
   - docker push noalistic/birdboard-app
@@ -17,8 +17,8 @@ after_success:
 deploy:
   provider: elasticbeanstalk
   region: us-east-2
-  app: birdboard-docker
-  env: BirdboardDocker-env
+  app: birdboard
+  env: Birdboard-env
   bucket_name: elasticbeanstalk-us-east-2-946065250109
   bucket_path: docker-birdboard
   on:
