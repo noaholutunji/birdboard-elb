@@ -9,18 +9,16 @@ script:
 
 after_success:
   - docker build -t noalistic/birdboard-app .
-  # - docker build -t noalistic/birdboard-nginx -f Dockerfile.nginx .
-  - echo $DOCKER_PASSWORD | docker login -u $DOCKER_ID --password-stdin
+  - echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
   - docker push noalistic/birdboard-app
-  # - docker push noalistic/birdboard-nginx
 
 deploy:
   provider: elasticbeanstalk
   region: us-east-2
   app: birdboard
-  env: Birdboard-env
+  env: Birdboard-env-1
   bucket_name: elasticbeanstalk-us-east-2-946065250109
-  bucket_path: docker-birdboard
+  bucket_path: birdboard
   on:
     branch: master
   access_key_id: $AWS_ACCESS_KEY
