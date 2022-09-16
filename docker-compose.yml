@@ -1,0 +1,41 @@
+version: '3'
+services:
+  #Laravel App
+  #  The Application
+  app:
+    container_name: laravel_app
+    build:
+      context: ./
+      dockerfile: development/app.dockerfile
+    environment:
+      - 'DB_CONNECTION=mysql'
+      - 'DB_HOST=database'
+      - 'DB_PORT=3306'
+      - 'DB_DATABASE=birdboard'
+      - 'DB_USERNAME=root'
+      - 'DB_PASSWORD=root'
+      - 'APP_DEBUG=true'
+      - 'APP_KEY=base64:0T1VDC+bmOJAEeRXsxX4pT2bcYiE1phDLOXu5mXTPPo='
+  #Nginx Service
+  # The Web Server
+  web:
+    container_name: nginx_server
+    build:
+      context: ./
+      dockerfile: development/web.dockerfile
+    ports:
+      - 8990:80
+  #MySQL Service
+  # The Database
+  database:
+    container_name: mysql_database
+    image: mysql:5.7
+    volumes:
+      - dbdata:/var/lib/mysql
+    environment:
+      - 'MYSQL_DATABASE=birdboard'
+      - 'MYSQL_ROOT_PASSWORD=root'
+    ports:
+      - 8991:3306
+volumes:
+  dbdata:
