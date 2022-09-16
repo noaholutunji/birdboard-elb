@@ -2,32 +2,31 @@ sudo: required
 services:
   - docker
 
-# before_install:
-#   - docker build -t noalistic/birdboard-test -f ./deployment/app-dockerfile ./development
+before_install:
+  - docker build -t noalistic/birdboard-test -f ./development/app.dockerfile .
 
 script:
-  - docker run -e CI=true noalistic/birdboard-test vendor/bin/phpunit -- --coverage
+  - docker run -e CI=true noalistic/birdboard-test vendor/bin/phpunit tests/Feature/ProjectTasksTest.php
 
 after_success:
   # build docker images
-  - docker build -t noalistic/ninostyle-client ./client
-  - docker build -t noalistic/ninostyle-nginx ./nginx
-  - docker build -t noalistic/ninostyle-server ./server
+  - docker build -t noalistic/birdboard-app ./development/app.dockerfile
+  - docker build -t noalistic/birdboard-web ./development/web.dockerfile
   # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take these build images and push to docker hub
-  - docker push noalistic/ninostyle-client
-  - docker push noalistic/ninostyle-nginx
-  - docker push noalistic/ninostyle-server
-deploy:
-  provider: elasticbeanstalk
-  region: us-east-2
-  app: ninostyle-docker
-  env: NinostyleDocker-env
-  bucket_name: elasticbeanstalk-us-east-2-946065250109
-  bucket_path: docker-ninostyle
-  on:
-    branch: master
-  access_key_id: $AWS_ACCESS_KEY
-  secret_access_key:
-    secure: $AWS_SECRET_KEY
+  - docker push noalistic/birdboard-app
+  - docker push noalistic/birdboard-web
+# For deployment
+# deploy:
+#   provider: elasticbeanstalk
+#   region: us-east-2
+#   app: wishmart
+#   env: Wishmart-env
+#   bucket_name: elasticbeanstalk-us-east-2-008951252297
+#   bucket_path: wishmart
+#   on:
+#     branch: master
+#   access_key_id: $AWS_ACCESS_KEY
+#   secret_access_key:
+#     secure: $AWS_SECRET_KEY
