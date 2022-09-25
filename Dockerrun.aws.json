@@ -2,16 +2,16 @@
     "AWSEBDockerrunVersion": 2,
     "containerDefinitions": [
         {
-            "name": "app",
+            "name": "laravel",
             "image": "noalistic/birdboard-app",
             "hostname": "app",
             "essential": false,
             "memory": 128
         },
         {
-            "name": "web",
+            "name": "nginx",
             "image": "noalistic/birdboard-nginx",
-            "hostname": "nginx",
+            "hostname": "web",
             "essential": true,
             "portMappings": [
                 {
@@ -19,7 +19,7 @@
                     "containerPort": 80
                 }
             ],
-            "links": ["app"],
+            "links": ["laravel"],
             "memory": 128
         }
     ]

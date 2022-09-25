@@ -1,7 +1,7 @@
 FROM php:7.2-fpm
 
 RUN apt-get update \
-    && apt-get -y install git zip unzip \
+    && apt-get -y install git zip unzip default-mysql-client \
     libmcrypt-dev libmagickwand-dev --no-install-recommends \
     && pecl install mcrypt-1.0.2 \
     && docker-php-ext-install pdo_mysql zip \
@@ -27,4 +27,5 @@ RUN chown -R $USER:www-data storage
 RUN chown -R $USER:www-data bootstrap/cache
 RUN chmod -R 775 storage
 RUN chmod -R 775 bootstrap/cache
+
 CMD ["bash", "start.sh"]
