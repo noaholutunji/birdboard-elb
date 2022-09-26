@@ -1,25 +1,26 @@
 {
-    "AWSEBDockerrunVersion": 2,
-    "containerDefinitions": [
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [
+    {
+      "name": "birdboard",
+      "image": "noalistic/birdboard-app",
+      "hostname": "app",
+      "memory": 512,
+      "essential": false
+    },
+    {
+      "name": "nginx",
+      "image": "noalistic/birdboard-nginx",
+      "hostname": "web",
+      "memory": 128,
+      "essential": true,
+      "portMappings": [
         {
-            "name": "laravel",
-            "image": "noalistic/birdboard-app",
-            "hostname": "app",
-            "essential": false,
-            "memory": 512
-        },
-        {
-            "name": "nginx",
-            "image": "noalistic/birdboard-nginx",
-            "hostname": "web",
-            "essential": true,
-            "portMappings": [
-                {
-                    "hostPort": 80,
-                    "containerPort": 80
-                }
-            ],
-            "links": ["laravel"]
+          "hostPort": 80,
+          "containerPort": 80
         }
-    ]
+      ],
+      "links": ["birdboard"]
+    }
+  ]
 }

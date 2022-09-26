@@ -6,7 +6,7 @@ services:
     container_name: laravel_app
     build:
       context: ./
-      dockerfile: development/app.dockerfile
+      dockerfile: Dockerfile
     environment:
       - 'DB_CONNECTION=mysql'
       - 'DB_HOST=database'
@@ -16,19 +16,13 @@ services:
       - 'DB_PASSWORD=root'
       - 'APP_DEBUG=true'
       - 'APP_KEY=base64:0T1VDC+bmOJAEeRXsxX4pT2bcYiE1phDLOXu5mXTPPo='
-  #Nginx Service
-  # The Web Server
-  web:
-    container_name: nginx_server
-    build:
-      context: ./
-      dockerfile: development/web.dockerfile
     ports:
-      - 8990:80
+      - 9000:80
+
   #MySQL Service
   # The Database
   database:
-    container_name: mysql_database
+    container_name: mysql
     image: mysql:5.7
     volumes:
       - dbdata:/var/lib/mysql
@@ -37,5 +31,6 @@ services:
       - 'MYSQL_ROOT_PASSWORD=root'
     ports:
       - 8991:3306
+
 volumes:
   dbdata:
